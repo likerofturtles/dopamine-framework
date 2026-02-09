@@ -90,3 +90,14 @@ bot = Bot(command_prefix="?", cogs_path="modules", logging_path="logging.db", de
 
 bot.run("YOUR_BOT_TOKEN_HERE")
 ```
+
+## License & Attribution
+
+Dopamine Framework is licensed under the **Apache License 2.0**.
+
+### How to Credit
+While you are free to use this framework for private or commercial bots, I require explicit credit. Please include a link to this repository or a mention of "Dopamine Framework" in:
+1. Your project's **README** or documentation.
+2. Your bot's **info/credits command** (for example `/about` or `/help`).
+
+*Example: "Built with [__Dopamine Framework__](https://github.com/smite-codes/dopamine-framework)"*
