@@ -1,0 +1,92 @@
+import asyncio
+import aiosqlite
+import os
+from typing import Optional, Dict
+from contextlib import asynccontextmanager
+
+
+class LoggingManager:
+    def __init__(self, db_path: str):
+        self.db_path = db_path
+        self.log_channel_cache: Dict[int, int] = {}
+        self.db_pool: Optional[asyncio.Queue] = None
+
+    async def init_pools(self, pool_size: int = 5):
+        if self.db_pool is None:
+            self.db_pool = asyncio.Queue(maxsize=pool_size)
+            for _ in range(pool_size):
+                conn = await aiosqlite.connect(
+                    self.db_path,
+                    timeout=5,
+                )
+                await conn.execute("PRAGMA busy_timeout=5000")
+                await conn.execute("PRAGMA journal_mode=WAL")
+                await conn.execute("PRAGMA synchronous = NORMAL")
+                await conn.commit()
+                await self.db_pool.put(conn)
+
+    async def close_pools(self):
+        if self.db_pool is not None:
+            while not self.db_pool.empty():
+                conn = await self.db_pool.get()
+                await conn.close()
+            self.db_pool = None
+
+    @asynccontextmanager
+    async def acquire_db(self):
+        if self.db_pool is None:
+            await self.init_pools()
+        conn = await self.db_pool.get()
+        try:
+            yield conn
+        finally:
+            await self.db_pool.put(conn)
+
+    async def init_db(self):
+        async def run_init():
+            async with self.acquire_db() as db:
+                await db.execute('''
+                                 CREATE TABLE IF NOT EXISTS log_channels
+                                 (
+                                     guild_id INTEGER PRIMARY KEY,
+                                     channel_id INTEGER
+                                 )
+                                 ''')
+                await db.commit()
+
+        await run_init()
+
+    async def populate_cache(self):
+        self.log_channel_cache.clear()
+        async with self.acquire_db() as db:
+            async with db.execute("SELECT guild_id, channel_id FROM log_channels") as cursor:
+                rows = await cursor.fetchall()
+                for row in rows:
+                    self.log_channel_cache[row[0]] = row[1]
+
+    async def get(self, guild_id: int) -> Optional[int]:
+        if guild_id in self.log_channel_cache:
+            return self.log_channel_cache[guild_id]
+
+        async with self.acquire_db() as db:
+            async with db.execute("SELECT channel_id FROM log_channels WHERE guild_id = ?", (guild_id,)) as cursor:
+                row = await cursor.fetchone()
+                if row:
+                    self.log_channel_cache[guild_id] = row[0]
+                    return row[0]
+        return None
+
+    async def set(self, guild_id: int, channel_id: int):
+        async with self.acquire_db() as db:
+            await db.execute(
+                "INSERT OR REPLACE INTO log_channels (guild_id, channel_id) VALUES (?, ?)",
+                (guild_id, channel_id)
+            )
+            await db.commit()
+        self.log_channel_cache[guild_id] = channel_id
+
+    async def remove(self, guild_id: int):
+        async with self.acquire_db() as db:
+            await db.execute("DELETE FROM log_channels WHERE guild_id = ?", (guild_id,))
+            await db.commit()
+        self.log_channel_cache.pop(guild_id, None)
