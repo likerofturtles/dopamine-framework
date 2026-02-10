@@ -64,6 +64,8 @@ Never have to need terminal access/SSH using this simple to use and feature-rich
 | **3 MB less memory usage**        | **❌**                | **✅**                       | **❌**      |
 | **Gives you that Dopamine rush?** | **✅ (Built-in)**     | **❌**                       | **❌**      |
 
+---
+
 ## Implementation Example
 
 To initialize a bot using the Dopamine Framework, follow the following example:
