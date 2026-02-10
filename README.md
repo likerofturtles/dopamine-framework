@@ -10,9 +10,11 @@ Made by likerofturtles.
 **Use Python 3.12 or higher:**
 
 ```Linux/MacOS
+# Linux/MacOS
 python3 -m pip install -U dopamine-framework
 ```
 ```Windows
+# Windows
 py -3 -m pip install -U dopamine-framework
 ```
 ## Features
