@@ -47,6 +47,23 @@ Never have to need terminal access/SSH using this simple to use and feature-rich
 
 ---
 
+### Comparison (with Sapphire Framework and bare-bones discord.py)
+
+| Feature                           | Dopamine Framework   | Sapphire (js/ts)            | discord.py |
+|-----------------------------------|----------------------|-----------------------------|------------|
+| **Easy Setup**                    | **✅ (only 4 lines)** | **❌** (Lots of boilerplate) | **❌**      |
+| **Smart Commands Sync**           | **✅ (Built-in)**     | **✅** (Through plugins)     | **❌**      |
+| **In-Discord Dashboard**          | **✅ (Built-in)**     | **❌**                       | **❌**      |
+| **Latency Graphs**                | **✅ (Built-in)**     | **❌**                       | **❌**      |
+| **Scalability**                   | **✅ (High)**         | **✅ (Highest)**             | **✅**      |
+| **Efficient & Fast Development**  | **✅ (Highest)**      | **❌**                       | **❌**      |
+| **Strict TypeScript Rules**       | **❌**                | **✅**                       | **❌**      |
+| **Resource Monitoring**           | **✅ (Built-in)**     | **❌**                       | **❌**      |
+| **Is it JS, tho?**                | **❌**                | **✅**                       | **❌**      |
+| **0.02s faster execution time**   | **❌**                | **✅**                       | **❌**      |
+| **3 MB less memory usage**        | **❌**                | **✅**                       | **❌**      |
+| **Gives you that Dopamine rush?** | **✅ (Built-in)**     | **❌**                       | **❌**      |
+
 ## Implementation Example
 
 To initialize a bot using the Dopamine Framework, follow the following example:
