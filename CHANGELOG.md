@@ -5,8 +5,7 @@
 
 ### Documentation Changes
 
-* Expanded intro in readme: "In technical terms, this is an **Flexible Boilerplate Framework**." ([0ad11b7](https://github.com/likerofturtles/dopamine-framework/commit/0ad11b7c570690d1c6e5082cd7c19566245ef4ab))
-* Expanded intro in readme: "In technical terms, this is an **Opinionated Boilerplate Framework**." ([0d87146](https://github.com/likerofturtles/dopamine-framework/commit/0d8714656a74d637995638cd9e5545302986b4cf))
+* Expanded intro in readme: "In technical terms, this is a **Flexible Boilerplate Framework**." ([0ad11b7](https://github.com/likerofturtles/dopamine-framework/commit/0ad11b7c570690d1c6e5082cd7c19566245ef4ab))
 
 ## [v1.2.2](https://github.com/likerofturtles/dopamine-framework/compare/vv1.2.1...vv1.2.2) (2026-02-12)
 ### Bug Fixes
