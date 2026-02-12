@@ -75,7 +75,7 @@ To initialize a bot using the Dopamine Framework, follow the following example:
 
 ```python
 import discord
-from dopamine_framework import Bot
+from dopamineframework import Bot
 
 bot = Bot(command_prefix="?", cogs_path="your cogs/modules folder path here*", logging_path="path to .sqlite, .db, or .db3 file; only define if you want to use this logging backend.", default_diagnostics=True, intents=discord.Intents.default()) # If no cogs folder is defined, it will default to "cogs". If no logging path, logging will be disabled.
 
@@ -107,7 +107,7 @@ The LoggingManager is an asynchronous backend designed to facilitate per-guild D
 
 ```python
 import discord
-from dopamine_framework import Bot
+from dopamineframework import Bot
 
 bot = Bot(command_prefix="?", cogs_path="modules", logging_path="logging.db", default_diagnostics=True, intents=discord.Intents.default()) # Define logging path to enable logging. If no logging path, logging will be disabled.
 
