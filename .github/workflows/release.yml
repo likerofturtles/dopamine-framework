@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   release:
@@ -31,7 +32,8 @@ jobs:
                       @semantic-release/git \
                       @semantic-release/changelog \
                       @semantic-release/exec \
-                      @semantic-release/github
+                      @semantic-release/github \
+                      conventional-changelog-conventionalcommits
 
       - name: Release
         env:
