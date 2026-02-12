@@ -1,3 +1,8 @@
+## [v1.3.1](https://github.com/likerofturtles/dopamine-framework/compare/vv1.3.0...vv1.3.1) (2026-02-12)
+### Bug Fixes
+
+* Added relative import fix in dashboard.py to fix this error that occurs when attempting to load internal cog: ERROR: Failed to start the bot: Extension 'dopamineframework.ext.diagnostics' raised an error: ModuleNotFoundError: No module named 'src' ([3cbc6d9](https://github.com/likerofturtles/dopamine-framework/commit/3cbc6d94dcca6e155473a18c5521aa95ce1e2bcf))
+
 ## [v1.3.0](https://github.com/likerofturtles/dopamine-framework/compare/vv1.2.4...vv1.3.0) (2026-02-12)
 ### Features & Minor Updates and Changes
 
