@@ -8,7 +8,7 @@ import os
 import io
 from PIL import Image, ImageDraw, ImageFont
 from collections import deque
-from src.dopamine_framework.core.dashboard import OwnerDashboard
+from src.dopamineframework.core.dashboard import OwnerDashboard
 from .path import framework_version, BOLDFONT_PATH
 import geocoder
 

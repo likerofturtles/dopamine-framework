@@ -55,7 +55,7 @@ class Bot(commands.Bot):
         else:
             print(f"WARNING: '{self.cogs_path}' directory not found.")
         if self.default_diagnostics:
-            await self.load_extension("dopamine_framework.ext.diagnostics")
+            await self.load_extension("dopamineframework.ext.diagnostics")
         status = await self.registry.smart_sync()
         print(status)
 
