@@ -36,7 +36,7 @@
     [
       "@semantic-release/git",
       {
-        "assets": ["pyproject.toml", "src/dopamine_framework/ext/path.py", "CHANGELOG.md"],
+        "assets": ["pyproject.toml", "src/dopamineframework/ext/path.py", "CHANGELOG.md"],
         "message": "chore(release): ${nextRelease.version} [skip ci]"
       }
     ],
