@@ -8,7 +8,7 @@
         "preset": "conventionalcommits",
         "presetConfig": {
           "types": [
-            { "type": "feat", "section": "Features" },
+            { "type": "feat", "section": "Features & Minor Updates and Changes" },
             { "type": "fix", "section": "Bug Fixes" },
             { "type": "style", "section": "Styling, UI, Code Cleanup, and Linting Fixes", "hidden": false },
             { "type": "docs", "section": "Documentation Changes", "hidden": false },
