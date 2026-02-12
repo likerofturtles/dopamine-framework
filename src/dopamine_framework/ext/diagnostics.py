@@ -136,7 +136,7 @@ class Diagnostics(commands.Cog):
         fill_points = [(pad_left, height - pad_bot)] + points + [(width - pad_right, height - pad_bot)]
         overlay = Image.new("RGBA", (width, height), (0, 0, 0, 0))
         overlay_draw = ImageDraw.Draw(overlay)
-        overlay_draw.polygon(fill_points, fill=(134, 50, 230, 40))
+        overlay_draw.polygon(fill_points, fill=(148, 74, 232, 40))
         img = Image.alpha_composite(img, overlay)
 
         draw = ImageDraw.Draw(img)
@@ -262,7 +262,7 @@ class Diagnostics(commands.Cog):
                 f"> Memory Usage: `{memory_usage}`\n"
                 f"> {battery_status}"
             ),
-            color=discord.Color(0x8632e6)
+            color=discord.Color(0x944ae8)
         )
         message = await interaction.original_response()
         await message.edit(content=None, embed=embed)
