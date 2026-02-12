@@ -1,3 +1,8 @@
+## [v1.3.2](https://github.com/likerofturtles/dopamine-framework/compare/vv1.3.1...vv1.3.2) (2026-02-12)
+### Bug Fixes
+
+* Hotfix: Fixed commands registry crashing and failing to load the bot while trying to handle command groups. ([dd8bfb0](https://github.com/likerofturtles/dopamine-framework/commit/dd8bfb0280cf9aea43f7997f1e27529b8f2e2f5c))
+
 ## [v1.3.1](https://github.com/likerofturtles/dopamine-framework/compare/vv1.3.0...vv1.3.1) (2026-02-12)
 ### Bug Fixes
 
