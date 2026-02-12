@@ -38,7 +38,7 @@ No need for terminal access/SSH. This simple to use and feature-rich dashboard f
 
 * **Cog Management:** Dynamic loading, unloading, and reloading of cogs.
 * **Power State:** Remote shutdown and process-level restarts.
-* **Logs:** Real-time retrieval of local log files via the Discord UI.
+* **Logs:** Real-time retrieval of log files via the Discord UI.
 * **Manual Command Syncs:** Sync commands manually globally or within only the current guild.
 
 ### 4. Built-in Logging Backend
@@ -95,9 +95,9 @@ bot.run("YOUR_BOT_TOKEN_HERE")
 
 ---
 
-## Logging Manager Documentation
+## Discord Logging Manager Documentation
 
-The LoggingManager is an asynchronous backend designed to facilitate per-guild Discord channel logging for things such as mod logs, action logs, and more.
+The LoggingManager is an asynchronous backend designed to facilitate per-guild Discord channel logging for things such as mod logs, action logs, and more. Not to be confused with the logs in a discord.log or similar file in discord.py bots that sits on the host machine and logs info about the bot.
 
 * **`self.logger.get(guild.id)`:** Get the logging channel, where guild.id the guild whose logging channel's ID you want to get.
 * **`self.logger.set(guild.id, channel_id)`:** Set the logging channel, where guild.id the guild and channel_id is the ID of the channel to be set for logging.
