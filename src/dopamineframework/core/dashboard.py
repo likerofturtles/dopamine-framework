@@ -38,7 +38,7 @@ class OwnerDashboard(PrivateLayoutView):
     def build_layout(self):
         self.clear_items()
         container = discord.ui.Container()
-        container.add_item((discord.ui.TextDisplay("## Owner Dashboard")))
+        container.add_item((discord.ui.TextDisplay("## Dopamine Framework Owner Dashboard")))
         container.add_item(discord.ui.Separator())
 
         cogs_dir = os.path.join(os.getcwd(), "cogs")
@@ -159,7 +159,7 @@ class OwnerDashboard(PrivateLayoutView):
                 reloaded.append(ext)
             except Exception as e:
                 failed.append(f"{ext} ({e})")
-        status = f"Reloaded {len(reloaded)} cogs."
+        status = f"Dopamine Framework: Reloaded {len(reloaded)} cogs."
         if failed: status += f"\n**Failed:** {', '.join(failed)}"
         await interaction.followup.send(status, ephemeral=True)
 
@@ -175,28 +175,28 @@ class OwnerDashboard(PrivateLayoutView):
 
 
     async def shutdown_callback(self, interaction: discord.Interaction):
-        await interaction.response.send_message("Shutting down...", ephemeral=True)
+        await interaction.response.send_message("Dopamine Framework: Shutting down...", ephemeral=True)
         await signal_handler()
 
     async def restart_callback(self, interaction: discord.Interaction):
-        await interaction.response.send_message("Restarting process...", ephemeral=True)
+        await interaction.response.send_message("Dopamine Framework: Restarting process...", ephemeral=True)
         await restart_bot()
 
     async def show_log_callback(self, interaction: discord.Interaction):
         log_path = os.path.join(os.getcwd(), "discord.log")
         if not os.path.exists(log_path):
-            return await interaction.response.send_message("Log file not found.", ephemeral=True)
+            return await interaction.response.send_message("Dopamine Framework: ERROR: Log file not found.", ephemeral=True)
         try:
             with open(log_path, "r", encoding="utf-8") as f:
                 log_content = f.read()
             if len(log_content) > 1900:
-                await interaction.response.send_message("Log exceeds 1900 chars, sending file:", file=discord.File(log_path), ephemeral=True)
+                await interaction.response.send_message("Dopamine Framework: Log exceeds 1900 chars, sending file:", file=discord.File(log_path), ephemeral=True)
             elif not log_content.strip():
-                await interaction.response.send_message("Log file is empty.", ephemeral=True)
+                await interaction.response.send_message("Dopamine Framework: Log file is empty.", ephemeral=True)
             else:
                 await interaction.response.send_message(f"```\n{log_content}\n```", ephemeral=True)
         except Exception as e:
-            await interaction.response.send_message(f"Failed to read log: {e}", ephemeral=True)
+            await interaction.response.send_message(f"Dopamine Framework: ERROR: Failed to read log: {e}", ephemeral=True)
 
 class OwnerGoToPageModal(discord.ui.Modal):
     def __init__(self, parent_view: OwnerDashboard, total_pages: int):

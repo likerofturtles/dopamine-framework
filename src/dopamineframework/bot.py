@@ -39,7 +39,7 @@ class Bot(commands.Bot):
             try:
                 self.logger = LoggingManager(self.log_path)
             except Exception as e:
-                logger.error(f"Failed to initialize logging manager: {e}")
+                logger.error(f"Dopamine Framework: Failed to initialize logging manager: {e}")
 
         if os.path.exists(self.cogs_path):
             base_module = self.cogs_path.replace(os.path.sep, ".").strip(".")
@@ -49,11 +49,11 @@ class Bot(commands.Bot):
                     extension = f"{base_module}.{filename[:-3]}"
                     try:
                         await self.load_extension(extension)
-                        print(f"> Loaded {extension} Successfully")
+                        print(f"> Dopamine Framework: Loaded {extension} Successfully")
                     except Exception as e:
-                        print(f"ERROR: Failed to load {extension}: {e}")
+                        print(f"Dopamine Framework: ERROR: Failed to load {extension}: {e}")
         else:
-            print(f"WARNING: '{self.cogs_path}' directory not found.")
+            print(f"Dopamine Framework: WARNING: '{self.cogs_path}' directory not found.")
         if self.default_diagnostics:
             await self.load_extension("dopamineframework.ext.diagnostics")
         status = await self.registry.smart_sync()
@@ -65,21 +65,21 @@ class Bot(commands.Bot):
             )
 
     async def signal_handler(self):
-        print("\nBot shutdown requested...")
+        print("\nDopamine Framework: Bot shutdown requested...")
         extensions = list(self.extensions.keys())
         for extension in extensions:
             try:
                 await self.unload_extension(extension)
-                print(f"> Unloaded {extension} successfully")
+                print(f"> Dopamine Framework: Unloaded {extension} successfully")
             except Exception as e:
-                print(f"Error unloading {extension}: {e}")
+                print(f"Dopamine Framework: Error unloading {extension}: {e}")
 
         print("👋 Goodbye!")
         await self.close()
 
     async def restart_bot(self):
         print()
-        print("Restarting bot...")
+        print("Dopamine Framework: Restarting bot...")
         await self.signal_handler()
         os.execv(sys.executable, [sys.executable] + sys.argv)
 

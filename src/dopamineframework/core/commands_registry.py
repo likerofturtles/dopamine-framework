@@ -33,7 +33,7 @@ class CommandRegistry:
         try:
             remote_commands = await self.bot.tree.fetch_commands(guild=guild)
         except Exception as e:
-            logger.error(f"Failed to fetch remote commands: {e}")
+            logger.error(f"Dopamine Framework: Failed to fetch remote commands: {e}")
             return False
 
         if len(local_commands) != len(remote_commands):
