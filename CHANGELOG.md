@@ -1,3 +1,8 @@
+## [v1.2.4](https://github.com/likerofturtles/dopamine-framework/compare/vv1.2.3...vv1.2.4) (2026-02-12)
+### Bug Fixes
+
+* Fixed capitalization of Bot in legacy support import statement. Legacy support now works perfectly. ([1651b9f](https://github.com/likerofturtles/dopamine-framework/commit/1651b9f9bb4602916051bfb07e53f3f85692c0e0))
+
 ## [v1.2.3](https://github.com/likerofturtles/dopamine-framework/compare/vv1.2.2...vv1.2.3) (2026-02-12)
 ### Bug Fixes
 
