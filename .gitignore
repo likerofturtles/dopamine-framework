@@ -226,4 +226,5 @@ __pycache__/
 *.4
 *.5
 
-*.json
+package-lock.json
+package.json
