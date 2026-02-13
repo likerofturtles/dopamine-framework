@@ -34,6 +34,7 @@ class Bot(commands.Bot):
         self.status=status
         self.activity=activity
         self.registry = CommandRegistry(self)
+        self.logger = None
         self.start_time = None
 
     async def setup_hook(self):
