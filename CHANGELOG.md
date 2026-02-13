@@ -1,3 +1,14 @@
+## [v1.4.1](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.0...vv1.4.1) (2026-02-13)
+### Bug Fixes
+
+* Hotfix: Added return statements to views that got lost (shorthand for: i accidentally removed it on purpose) while porting from Dopamine. ([5866e83](https://github.com/likerofturtles/dopamine-framework/commit/5866e83f0d6902a8864d5a1450bf7eba40d874c4))
+
+### Documentation Changes
+
+* Centered the ticks and crosses and stuff column in the comparison table. ([2cf2f95](https://github.com/likerofturtles/dopamine-framework/commit/2cf2f956c4ce70cda50212c4680fab61ee7f101d))
+* New DOCUMENTATION folder that contains documentation for devs for how to use each feature or utility. ([e358662](https://github.com/likerofturtles/dopamine-framework/commit/e358662b7cf51a411ce2df1883676892e4decb49))
+* Removed redundant logging documentation from readme. ([061a342](https://github.com/likerofturtles/dopamine-framework/commit/061a3426bab9b65ecda6ddefdee6b88ea8633328))
+
 ## [v1.4.0](https://github.com/likerofturtles/dopamine-framework/compare/vv1.3.3...vv1.4.0) (2026-02-13)
 ### Features & Minor Updates and Changes
 
