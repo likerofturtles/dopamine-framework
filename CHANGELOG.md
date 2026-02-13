@@ -1,3 +1,12 @@
+## [v1.3.3](https://github.com/likerofturtles/dopamine-framework/compare/vv1.3.2...vv1.3.3) (2026-02-13)
+### Bug Fixes
+
+* Moved owner dashboard command to a new pic.py (PIC = Permanent Internal Cog) so that owner dashboard doesn't get disabled if the user disables the diagnostics feature. ([efdc633](https://github.com/likerofturtles/dopamine-framework/commit/efdc6332c43311fd028588e7a2632ef622026c62))
+
+### Documentation Changes
+
+* Added "No tantrums over different structure" as a feature in readme comparison table. ([ff1dafb](https://github.com/likerofturtles/dopamine-framework/commit/ff1dafbdc218742189412a51f651402bd69a632a))
+
 ## [v1.3.2](https://github.com/likerofturtles/dopamine-framework/compare/vv1.3.1...vv1.3.2) (2026-02-12)
 ### Bug Fixes
 
