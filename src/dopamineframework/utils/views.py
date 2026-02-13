@@ -12,6 +12,9 @@ class PrivateView(discord.ui.View):
                 "This isn't for you!",
                 ephemeral=True
             )
+            return False
+        return True
+
 
 
 class PrivateLayoutView(discord.ui.LayoutView):
@@ -25,3 +28,5 @@ class PrivateLayoutView(discord.ui.LayoutView):
                 "This isn't for you!",
                 ephemeral=True
             )
+            return False
+        return True
