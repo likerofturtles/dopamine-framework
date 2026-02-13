@@ -1,3 +1,8 @@
+## [v1.4.2](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.1...vv1.4.2) (2026-02-13)
+### Bug Fixes
+
+* Hotfix: Added line to load the pic.py (i forgot it :sob:) ([347378b](https://github.com/likerofturtles/dopamine-framework/commit/347378b4e054c0d1d3c394017d7f3a0271ebb208))
+
 ## [v1.4.1](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.0...vv1.4.1) (2026-02-13)
 ### Bug Fixes
 
