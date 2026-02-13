@@ -96,25 +96,6 @@ bot.run("YOUR_BOT_TOKEN_HERE")
 
 ---
 
-## Discord Logging Manager Documentation
-
-The LoggingManager is an asynchronous backend designed to facilitate per-guild Discord channel logging for things such as mod logs, action logs, and more. Not to be confused with the logs in a discord.log or similar file in discord.py bots that sits on the host machine and logs info about the bot.
-
-* **`self.logger.get(guild.id)`:** Get the logging channel, where guild.id the guild whose logging channel's ID you want to get.
-* **`self.logger.set(guild.id, channel_id)`:** Set the logging channel, where guild.id the guild and channel_id is the ID of the channel to be set for logging.
-* **`self.logger.delete(guild.id)`:** Delete the logging channel, where guild.id the guild whose logging channel you want to delete.
-
-### Example:
-
-```python
-import discord
-from dopamineframework import Bot
-
-bot = Bot(command_prefix="?", cogs_path="modules", logging_path="logging.db", default_diagnostics=True, intents=discord.Intents.default()) # Define logging path to enable logging. If no logging path, logging will be disabled.
-
-bot.run("YOUR_BOT_TOKEN_HERE")
-```
-
 ## License & Attribution
 
 Dopamine Framework is licensed under the **Apache License 2.0**.
