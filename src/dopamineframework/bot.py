@@ -74,12 +74,14 @@ class Bot(commands.Bot):
         if self.default_diagnostics:
             await self.unload_extension("dopamineframework.ext.diagnostics")
         await self.unload_extension("dopamineframework.ext.pic")
+        internal_extensions = ("dopamineframework.ext.diagnostics", "dopamineframework.ext.pic")
         for extension in extensions:
-            try:
-                await self.unload_extension(extension)
-                print(f"> Dopamine Framework: Unloaded {extension} successfully")
-            except Exception as e:
-                print(f"Dopamine Framework: Error unloading {extension}: {e}")
+            if extension not in internal_extensions:
+                try:
+                    await self.unload_extension(extension)
+                    print(f"> Dopamine Framework: Unloaded {extension} successfully")
+                except Exception as e:
+                    print(f"Dopamine Framework: Error unloading {extension}: {e}")
 
         print("👋 Goodbye!")
         await self.close()
