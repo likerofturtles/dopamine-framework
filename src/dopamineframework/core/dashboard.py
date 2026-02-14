@@ -211,7 +211,7 @@ class OwnerDashboard(PrivateLayoutView):
                     await interaction.followup.send(f"```\n{text_content}\n```", ephemeral=True)
 
         except Exception as e:
-            await interaction.response.send_message(f"Dopamine Framework: ERROR: Failed to read log: {e}",
+            await interaction.followup.send(f"Dopamine Framework: ERROR: Failed to read log: {e}",
                                                     ephemeral=True)
 
 class OwnerGoToPageModal(discord.ui.Modal):
