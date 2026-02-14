@@ -190,6 +190,8 @@ class OwnerDashboard(PrivateLayoutView):
         if not os.path.exists(log_path):
             return await interaction.response.send_message("Dopamine Framework: ERROR: Log file not found.",
                                                            ephemeral=True)
+
+        await interaction.response.defer()
         try:
             with open(log_path, "rb") as f:
                 log_data = f.read()
@@ -199,14 +201,14 @@ class OwnerDashboard(PrivateLayoutView):
 
                 if len(log_data) > 1900:
                     f.seek(0)
-                    await interaction.response.send_message(
+                    await interaction.followup.send(
                         "Dopamine Framework: Log exceeds 1900 chars, sending file:",
                         file=discord.File(f, filename="discord.log"),
                         ephemeral=True
                     )
                 else:
                     text_content = log_data.decode("utf-8")
-                    await interaction.response.send_message(f"```\n{text_content}\n```", ephemeral=True)
+                    await interaction.followup.send(f"```\n{text_content}\n```", ephemeral=True)
 
         except Exception as e:
             await interaction.response.send_message(f"Dopamine Framework: ERROR: Failed to read log: {e}",
