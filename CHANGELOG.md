@@ -1,3 +1,8 @@
+## [v1.4.4](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.3...vv1.4.4) (2026-02-14)
+### Bug Fixes
+
+* Hotfix: Fixed shutdown and restart buttons not working in owner's dashboard. ([1ce4af9](https://github.com/likerofturtles/dopamine-framework/commit/1ce4af9aaa574ceefcdd38b1afcd34267aa600c6))
+
 ## [v1.4.3](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.2...vv1.4.3) (2026-02-14)
 ### Bug Fixes
 
