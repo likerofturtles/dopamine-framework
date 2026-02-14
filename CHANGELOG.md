@@ -1,3 +1,9 @@
+## [v1.4.6](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.5...vv1.4.6) (2026-02-14)
+### Bug Fixes
+
+* Fixed "error" unloading in main unloading of extensions because the extension is already manually unloaded. ([93bfdf9](https://github.com/likerofturtles/dopamine-framework/commit/93bfdf9266e82f7c19f3f9c388d9dd6c40fa3b07))
+* Hotfix: Updated status and activity updater code to use new variables (bug caused by old fix) ([be6f0a8](https://github.com/likerofturtles/dopamine-framework/commit/be6f0a814400a10df7ea2e283e588d2cda029de2))
+
 ## [v1.4.5](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.4...vv1.4.5) (2026-02-14)
 ### Bug Fixes
 
