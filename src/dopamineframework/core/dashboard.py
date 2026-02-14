@@ -74,7 +74,7 @@ class OwnerDashboard(PrivateLayoutView):
         if total_pages > 1:
             nav_row = discord.ui.ActionRow()
 
-            left_btn = discord.ui.Button(label="◀️", style=discord.ButtonStyle.primary, disabled=(self.page <= 1))
+            left_btn = discord.ui.Button(emoji="◀️", style=discord.ButtonStyle.primary, disabled=(self.page <= 1))
             left_btn.callback = self.prev_page
             nav_row.add_item(left_btn)
 
@@ -82,7 +82,7 @@ class OwnerDashboard(PrivateLayoutView):
             go_btn.callback = self.go_to_page_callback
             nav_row.add_item(go_btn)
 
-            right_btn = discord.ui.Button(label="▶️", style=discord.ButtonStyle.primary,
+            right_btn = discord.ui.Button(emoji="▶️", style=discord.ButtonStyle.primary,
                                           disabled=(self.page >= total_pages))
             right_btn.callback = self.next_page
             nav_row.add_item(right_btn)
@@ -190,24 +190,23 @@ class OwnerDashboard(PrivateLayoutView):
         if not os.path.exists(log_path):
             return await interaction.response.send_message("Dopamine Framework: ERROR: Log file not found.",
                                                            ephemeral=True)
-
         try:
             with open(log_path, "rb") as f:
                 log_data = f.read()
 
-            if not log_data.strip():
-                return await interaction.response.send_message("Dopamine Framework: Log file is empty.", ephemeral=True)
+                if not log_data.strip():
+                    return await interaction.response.send_message("Log file is empty.", ephemeral=True)
 
-            if len(log_data) > 1900:
-                f.seek(0)
-                await interaction.response.send_message(
-                    "Dopamine Framework: Log exceeds 1900 chars, sending file:",
-                    file=discord.File(f, filename="discord.log"),
-                    ephemeral=True
-                )
-            else:
-                text_content = log_data.decode("utf-8")
-                await interaction.response.send_message(f"```\n{text_content}\n```", ephemeral=True)
+                if len(log_data) > 1900:
+                    f.seek(0)
+                    await interaction.response.send_message(
+                        "Dopamine Framework: Log exceeds 1900 chars, sending file:",
+                        file=discord.File(f, filename="discord.log"),
+                        ephemeral=True
+                    )
+                else:
+                    text_content = log_data.decode("utf-8")
+                    await interaction.response.send_message(f"```\n{text_content}\n```", ephemeral=True)
 
         except Exception as e:
             await interaction.response.send_message(f"Dopamine Framework: ERROR: Failed to read log: {e}",
