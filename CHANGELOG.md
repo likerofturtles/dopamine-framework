@@ -1,3 +1,8 @@
+## [v1.4.13](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.12...vv1.4.13) (2026-02-14)
+### Bug Fixes
+
+* Hotfix: Fixed the error: Failed to start the bot: 'Command' object has no attribute 'type' ([cf09a04](https://github.com/likerofturtles/dopamine-framework/commit/cf09a0436b0fa3a7d3a9e01db9d359eb810aad2c))
+
 ## [v1.4.12](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.11...vv1.4.12) (2026-02-14)
 ### Bug Fixes
 
