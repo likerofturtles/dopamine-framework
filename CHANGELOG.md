@@ -1,3 +1,8 @@
+## [v1.4.11](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.10...vv1.4.11) (2026-02-14)
+### Bug Fixes
+
+* Hotfix: Updated log file button to use trailing approach because trying to send the whole file to discord just isn't working. ([9004f75](https://github.com/likerofturtles/dopamine-framework/commit/9004f75f4513305e92bcf647a2481bfc575c7f14))
+
 ## [v1.4.10](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.9...vv1.4.10) (2026-02-14)
 ### Bug Fixes
 
