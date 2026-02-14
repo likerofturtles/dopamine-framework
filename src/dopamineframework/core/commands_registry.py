@@ -12,22 +12,23 @@ class CommandRegistry:
     def _get_command_signature(self, command):
         signature = {
             "name": command.name,
-            "description": command.description,
+            "type": int(command.type.value),
+            "description": getattr(command, 'description', ""),
             "options": []
         }
 
-        if hasattr(command, 'commands'):
-            for sub_command in command.commands:
-                signature["options"].append(self._get_command_signature(sub_command))
-
-        elif hasattr(command, 'parameters'):
-            for param in command.parameters:
-                signature["options"].append({
-                    "name": param.name,
-                    "description": param.description,
-                    "type": int(param.type.value),
-                    "required": param.required
-                })
+        if command.type.value == 1:
+            if hasattr(command, 'commands'):
+                for sub_command in command.commands:
+                    signature["options"].append(self._get_command_signature(sub_command))
+            elif hasattr(command, 'parameters'):
+                for param in command.parameters:
+                    signature["options"].append({
+                        "name": param.name,
+                        "description": param.description,
+                        "type": int(param.type.value),
+                        "required": param.required
+                    })
 
         signature["options"] = sorted(signature["options"], key=lambda x: x["name"])
         return signature
@@ -68,7 +69,8 @@ class CommandRegistry:
 
         return {
             "name": command.name,
-            "description": command.description,
+            "type": int(command.type.value),
+            "description": getattr(command, 'description', ""),
             "options": sorted(options, key=lambda x: x["name"])
         }
 
