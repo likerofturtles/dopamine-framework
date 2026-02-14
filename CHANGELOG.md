@@ -1,3 +1,8 @@
+## [v1.4.10](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.9...vv1.4.10) (2026-02-14)
+### Bug Fixes
+
+* Hotfix: Changed error message to followup because interaction was already responded to. ([452c6d2](https://github.com/likerofturtles/dopamine-framework/commit/452c6d25b14a14272940c3e04cd74ec4f58f61e2))
+
 ## [v1.4.9](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.8...vv1.4.9) (2026-02-14)
 ### Bug Fixes
 
