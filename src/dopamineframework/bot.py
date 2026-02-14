@@ -71,6 +71,9 @@ class Bot(commands.Bot):
     async def signal_handler(self):
         print("\nDopamine Framework: Bot shutdown requested...")
         extensions = list(self.extensions.keys())
+        if self.default_diagnostics:
+            await self.unload_extension("dopamineframework.ext.diagnostics")
+        await self.unload_extension("dopamineframework.ext.pic")
         for extension in extensions:
             try:
                 await self.unload_extension(extension)
