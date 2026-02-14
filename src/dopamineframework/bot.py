@@ -116,17 +116,17 @@ class Bot(commands.Bot):
 
         if self._activity and self._status:
             try:
-                await self.change_presence(activity=self.activity, status=self.status)
+                await self.change_presence(activity=self._activity, status=self._status)
             except Exception as e:
                 logger.critical(f"Dopamine Framework: ERROR: Failed to set activity or status: {e}")
         elif self._activity:
             try:
-                await self.change_presence(activity=self.activity)
+                await self.change_presence(activity=self._activity)
             except Exception as e:
                 logger.critical(f"Dopamine Framework: ERROR: Failed to set activity: {e}")
         elif self._status:
             try:
-                await self.change_presence(status=self.status)
+                await self.change_presence(status=self._status)
             except Exception as e:
                 logger.critical(f"Dopamine Framework: ERROR: Failed to set status: {e}")
 
