@@ -6,6 +6,7 @@ import asyncio
 from typing import TYPE_CHECKING
 from ..bot import Bot
 from ..core.commands_registry import CommandRegistry
+import logging
 
 if TYPE_CHECKING:
     from discord.ext import commands
@@ -182,19 +183,35 @@ class OwnerDashboard(PrivateLayoutView):
 
     async def show_log_callback(self, interaction: discord.Interaction):
         log_path = os.path.join(os.getcwd(), "discord.log")
+
+        for handler in logging.getLogger().handlers:
+            handler.flush()
+
         if not os.path.exists(log_path):
-            return await interaction.response.send_message("Dopamine Framework: ERROR: Log file not found.", ephemeral=True)
+            return await interaction.response.send_message("Dopamine Framework: ERROR: Log file not found.",
+                                                           ephemeral=True)
+
         try:
-            with open(log_path, "r", encoding="utf-8") as f:
-                log_content = f.read()
-            if len(log_content) > 1900:
-                await interaction.response.send_message("Dopamine Framework: Log exceeds 1900 chars, sending file:", file=discord.File(log_path), ephemeral=True)
-            elif not log_content.strip():
-                await interaction.response.send_message("Dopamine Framework: Log file is empty.", ephemeral=True)
+            with open(log_path, "rb") as f:
+                log_data = f.read()
+
+            if not log_data.strip():
+                return await interaction.response.send_message("Dopamine Framework: Log file is empty.", ephemeral=True)
+
+            if len(log_data) > 1900:
+                f.seek(0)
+                await interaction.response.send_message(
+                    "Dopamine Framework: Log exceeds 1900 chars, sending file:",
+                    file=discord.File(f, filename="discord.log"),
+                    ephemeral=True
+                )
             else:
-                await interaction.response.send_message(f"```\n{log_content}\n```", ephemeral=True)
+                text_content = log_data.decode("utf-8")
+                await interaction.response.send_message(f"```\n{text_content}\n```", ephemeral=True)
+
         except Exception as e:
-            await interaction.response.send_message(f"Dopamine Framework: ERROR: Failed to read log: {e}", ephemeral=True)
+            await interaction.response.send_message(f"Dopamine Framework: ERROR: Failed to read log: {e}",
+                                                    ephemeral=True)
 
 class OwnerGoToPageModal(discord.ui.Modal):
     def __init__(self, parent_view: OwnerDashboard, total_pages: int):
