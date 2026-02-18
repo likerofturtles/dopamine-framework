@@ -1,3 +1,8 @@
+## [v1.4.14](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.13...vv1.4.14) (2026-02-18)
+### Bug Fixes
+
+* Fixed API latency cache freezing and never recovering due to waiting forever for response. (Waiting forever for a response from someone who won't ever respond, instead of moving on? Sounds a lot like my life and she- uhm sorry, where were we?) ([b865b47](https://github.com/likerofturtles/dopamine-framework/commit/b865b471599e22dceae9176d8ce9dd0d80f9a581))
+
 ## [v1.4.13](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.12...vv1.4.13) (2026-02-14)
 ### Bug Fixes
 
