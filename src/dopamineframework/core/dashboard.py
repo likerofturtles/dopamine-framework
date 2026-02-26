@@ -153,12 +153,14 @@ class OwnerDashboard(PrivateLayoutView):
         await interaction.response.defer(ephemeral=True)
         extensions = list(self.bot.extensions.keys())
         reloaded, failed = [], []
+        internal_extensions = ("dopamineframework.ext.diagnostics", "dopamineframework.ext.pic")
         for ext in extensions:
-            try:
-                await self.bot.reload_extension(ext)
-                reloaded.append(ext)
-            except Exception as e:
-                failed.append(f"{ext} ({e})")
+            if ext not in internal_extensions:
+                try:
+                    await self.bot.reload_extension(ext)
+                    reloaded.append(ext)
+                except Exception as e:
+                    failed.append(f"{ext} ({e})")
         status = f"Dopamine Framework: Reloaded {len(reloaded)} cogs."
         if failed: status += f"\n**Failed:** {', '.join(failed)}"
         await interaction.followup.send(status, ephemeral=True)
