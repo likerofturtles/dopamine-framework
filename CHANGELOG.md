@@ -1,3 +1,8 @@
+## [v1.4.16](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.15...vv1.4.16) (2026-02-26)
+### Bug Fixes
+
+* Fixed command sync always being triggered ([0adf0f7](https://github.com/dopaminestudios/dopamine-framework/commit/0adf0f7b76b57de9f9eae1aa471ae57c2efe2fab))
+
 ## [v1.4.15](https://github.com/likerofturtles/dopamine-framework/compare/vv1.4.14...vv1.4.15) (2026-02-19)
 ### Bug Fixes
 
