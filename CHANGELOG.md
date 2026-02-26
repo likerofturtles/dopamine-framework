@@ -1,3 +1,8 @@
+## [v1.4.19](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.18...vv1.4.19) (2026-02-26)
+### Bug Fixes
+
+* Hotfix: Fixed error `Failed to start the bot: 'Command' object has no attribute 'type'` ([3f7b2eb](https://github.com/dopaminestudios/dopamine-framework/commit/3f7b2eb0d363cc292eec63649b1bbac1e6a7f5ee))
+
 ## [v1.4.18](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.17...vv1.4.18) (2026-02-26)
 ### Bug Fixes
 
