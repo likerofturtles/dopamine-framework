@@ -1,5 +1,7 @@
 import logging
 import discord
+import hashlib
+import json
 from discord import app_commands
 
 logger = logging.getLogger("discord")
@@ -9,74 +11,88 @@ class CommandRegistry:
     def __init__(self, bot):
         self.bot = bot
 
-    def _get_command_signature(self, command):
-        if isinstance(command, discord.app_commands.ContextMenu):
-            command_type = command.type
+    def _get_clean_signature(self, command, is_remote=False):
+        """
+        Normalizes both local and remote commands into an identical dictionary format.
+        """
+        if not is_remote and isinstance(command, discord.app_commands.ContextMenu):
+            cmd_type = command.type.value
         else:
-            command_type = getattr(command, 'type', discord.AppCommandType.chat_input)
+            cmd_type = int(command.type.value)
+
+        description = getattr(command, 'description', "") or ""
+        if cmd_type in (2, 3):
+            description = ""
 
         signature = {
             "name": command.name,
-            "type": int(command_type.value),
-            "description": getattr(command, 'description', "") or "",
+            "type": cmd_type,
+            "description": description,
             "options": []
         }
 
-        if signature["type"] == 1:
-            if hasattr(command, 'commands'):
-                for sub_command in command.commands:
-                    signature["options"].append(self._get_command_signature(sub_command))
-            elif hasattr(command, '_params'):
-                for param in command._params.values():
-                    signature["options"].append({
-                        "name": param.name,
-                        "description": param.description or "",
-                        "type": int(param.type.value),
-                        "required": getattr(param, 'required', True)
-                    })
-        else:
-            signature["description"] = ""
+        if cmd_type == 1:
+            raw_options = []
+            if is_remote:
+                raw_options = getattr(command, 'options', [])
+            else:
+                if hasattr(command, 'commands'):
+                    raw_options = command.commands
+                elif hasattr(command, '_params'):
+                    raw_options = command._params.values()
+
+            for opt in raw_options:
+                if is_remote:
+                    if opt.type.value in (1, 2):
+                        signature["options"].append(self._get_clean_signature(opt, is_remote=True))
+                    else:
+                        signature["options"].append({
+                            "name": opt.name,
+                            "description": opt.description or "",
+                            "type": int(opt.type.value),
+                            "required": getattr(opt, 'required', False)
+                        })
+                else:
+                    if isinstance(opt, (discord.app_commands.Command, discord.app_commands.Group)):
+                        signature["options"].append(self._get_clean_signature(opt, is_remote=False))
+                    else:
+                        signature["options"].append({
+                            "name": opt.name,
+                            "description": opt.description or "",
+                            "type": int(opt.type.value),
+                            "required": getattr(opt, 'required', True)
+                        })
 
         signature["options"] = sorted(signature["options"], key=lambda x: x["name"])
         return signature
 
-    def _parse_remote_signature(self, command):
-        options = []
-        raw_options = getattr(command, 'options', [])
-
-        for opt in raw_options:
-            if opt.type.value in (1, 2):
-                options.append(self._parse_remote_signature(opt))
-            else:
-                options.append({
-                    "name": opt.name,
-                    "description": opt.description or "",
-                    "type": int(opt.type.value),
-                    "required": getattr(opt, 'required', False)
-                })
-
-        return {
-            "name": command.name,
-            "type": int(command.type.value),
-            "description": getattr(command, 'description', "") or "",
-            "options": sorted(options, key=lambda x: x["name"])
-        }
+    def _generate_hash(self, command_map):
+        sorted_map = {k: command_map[k] for k in sorted(command_map.keys())}
+        dump = json.dumps(sorted_map, sort_keys=True)
+        return hashlib.sha256(dump.encode('utf-8')).hexdigest()
 
     async def get_sync_status(self, guild: discord.Guild = None):
         local_commands = self.bot.tree.get_commands(guild=guild)
         try:
             remote_commands = await self.bot.tree.fetch_commands(guild=guild)
         except Exception as e:
-            logger.error(f"Dopamine Framework: Failed to fetch remote commands: {e}")
+            logger.error(f"Dopamine Framework: Failed to fetch: {e}")
             return False
 
         if len(local_commands) != len(remote_commands):
             return False
 
-        local_map = {c.name: self._get_command_signature(c) for c in local_commands}
-        remote_map = {c.name: self._parse_remote_signature(c) for c in remote_commands}
+        local_map = {c.name: self._get_clean_signature(c, is_remote=False) for c in local_commands}
+        remote_map = {c.name: self._get_clean_signature(c, is_remote=True) for c in remote_commands}
 
-        return local_map == remote_map
+        local_hash = self._generate_hash(local_map)
+        remote_hash = self._generate_hash(remote_map)
+
+        if local_hash != remote_hash:
+            logger.debug(f"Local Hash: {local_hash}")
+            logger.debug(f"Remote Hash: {remote_hash}")
+
+        return local_hash == remote_hash
 
     async def smart_sync(self, guild: discord.Guild = None):
         is_synced = await self.get_sync_status(guild)
