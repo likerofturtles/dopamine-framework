@@ -1,3 +1,8 @@
+## [v1.4.20](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.19...vv1.4.20) (2026-02-26)
+### Bug Fixes
+
+* Hotfix: Fixed: `ERROR: Failed to start the bot: Object of type locale_str is not JSON serializable` ([496d853](https://github.com/dopaminestudios/dopamine-framework/commit/496d853577e66c11dac9fb8d8b717e2f1faba2fa))
+
 ## [v1.4.19](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.18...vv1.4.19) (2026-02-26)
 ### Bug Fixes
 
