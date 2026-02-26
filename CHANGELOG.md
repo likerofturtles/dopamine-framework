@@ -1,3 +1,8 @@
+## [v1.4.26](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.25...vv1.4.26) (2026-02-26)
+### Bug Fixes
+
+* Fixed line break ([f5b6a56](https://github.com/dopaminestudios/dopamine-framework/commit/f5b6a5640e96dbd5bfcee35b96b25658191076b3))
+
 ## [v1.4.25](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.24...vv1.4.25) (2026-02-26)
 ### Bug Fixes
 
