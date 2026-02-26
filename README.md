@@ -2,7 +2,7 @@
 
 Dopamine Framework is a framework for discord.py which allows you to initialize a production-ready Discord bot in just 4 lines of code. In technical terms, this is a **Flexible Boilerplate Framework** (not to be confused with **opinionated** boilerplate framework). It is designed to streamline the development of scalable Discord applications by automating the process of registering commands, diagnosing the bot, and various other utilities such as a paginator helper and "Private View" helpers which let only the user who initiated the interaction to interact with the components like buttons.
 
-Made by likerofturtles.
+A **Dopamine Studios** product.
 
 ---
 ## Installing
