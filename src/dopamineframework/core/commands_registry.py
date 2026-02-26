@@ -12,7 +12,6 @@ class CommandRegistry:
         self.bot = bot
 
     def _get_clean_signature(self, command, is_remote=False):
-
         if is_remote:
             cmd_type = int(command.type.value)
         elif isinstance(command, discord.app_commands.ContextMenu):
@@ -25,13 +24,15 @@ class CommandRegistry:
             description = ""
 
         signature = {
-            "name": str(command.name),
+            "name": str(command.name).lower(),
             "type": cmd_type,
             "description": str(description),
+            "nsfw": getattr(command, 'nsfw', False),
+            "dm_permission": getattr(command, 'dm_permission', True),
             "options": []
         }
 
-        if cmd_type == 1:
+        if cmd_type in (1, 2):
             raw_options = []
             if is_remote:
                 raw_options = getattr(command, 'options', [])
@@ -42,26 +43,21 @@ class CommandRegistry:
                     raw_options = command._params.values()
 
             for opt in raw_options:
+                is_sub = False
                 if is_remote:
-                    if int(opt.type.value) in (1, 2):
-                        signature["options"].append(self._get_clean_signature(opt, is_remote=True))
-                    else:
-                        signature["options"].append({
-                            "name": str(opt.name),
-                            "description": str(opt.description or ""),
-                            "type": int(opt.type.value),
-                            "required": getattr(opt, 'required', False)
-                        })
+                    is_sub = int(opt.type.value) in (1, 2)
                 else:
-                    if isinstance(opt, (discord.app_commands.Command, discord.app_commands.Group)):
-                        signature["options"].append(self._get_clean_signature(opt, is_remote=False))
-                    else:
-                        signature["options"].append({
-                            "name": str(opt.name),
-                            "description": str(opt.description or ""),
-                            "type": int(opt.type.value),
-                            "required": getattr(opt, 'required', True)
-                        })
+                    is_sub = isinstance(opt, (discord.app_commands.Command, discord.app_commands.Group))
+
+                if is_sub:
+                    signature["options"].append(self._get_clean_signature(opt, is_remote=is_remote))
+                else:
+                    signature["options"].append({
+                        "name": str(opt.name).lower(),
+                        "description": str(opt.description or ""),
+                        "type": int(opt.type.value),
+                        "required": bool(getattr(opt, 'required', False))
+                    })
 
         signature["options"] = sorted(signature["options"], key=lambda x: x["name"])
         return signature
