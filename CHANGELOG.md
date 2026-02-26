@@ -1,3 +1,8 @@
+## [v1.4.24](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.23...vv1.4.24) (2026-02-26)
+### Bug Fixes
+
+* Fixed return statement ([719a237](https://github.com/dopaminestudios/dopamine-framework/commit/719a237c673210a8a88f9053e16d7677b99a926a))
+
 ## [v1.4.23](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.22...vv1.4.23) (2026-02-26)
 ### Bug Fixes
 
