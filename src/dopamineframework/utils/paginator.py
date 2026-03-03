@@ -35,13 +35,21 @@ class ViewPaginator(View):
         self.data = data
         self.page = 1
         self.per_page = per_page
-        self.total_pages = (len(data) - 1) // per_page + 1 if data else 1
+        self.total_pages = (len(self.data) - 1) // per_page + 1 if data else 1
+
+        self.update_button_states()
+
+    def update_button_states(self):
+        self.prev_page.disabled = (self.page == 1)
+        self.next_page.disabled = (self.page == self.total_pages)
+        self.go_to_page.disabled = (self.total_pages <= 1)
 
     def get_current_page_data(self):
         start = (self.page - 1) * self.per_page
         return self.data[start: start + self.per_page]
 
     async def update_view(self, interaction: discord.Interaction):
+        self.update_button_states()
         await interaction.response.edit_message(view=self)
 
     @discord.ui.button(emoji="◀️", style=discord.ButtonStyle.gray)
