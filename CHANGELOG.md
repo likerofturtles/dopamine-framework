@@ -1,3 +1,8 @@
+## [v1.4.28](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.27...vv1.4.28) (2026-03-03)
+### Bug Fixes
+
+* Fixed missing logic to disable the buttons in appropriate situations. ([bf58503](https://github.com/dopaminestudios/dopamine-framework/commit/bf585032a612576b789636c3f19419b6b1dcc8f4))
+
 ## [v1.4.27](https://github.com/dopaminestudios/dopamine-framework/compare/vv1.4.26...vv1.4.27) (2026-02-26)
 ### Bug Fixes
 
