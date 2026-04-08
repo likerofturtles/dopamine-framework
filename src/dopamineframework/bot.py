@@ -137,9 +137,11 @@ class Bot(commands.Bot):
                   "\n"
                   f"Bot ready: {self.user} (ID: {self.user.id})\n"
                   f"Bot Owner identified: {owner_user_name}\n"
-                  f"---------------------------------------------------\n"
-                  "")
+                  f"---------------------------------------------------"
+                  "\n")
 
         print(banner)
+
+        logger.info(banner)
 
         self.start_time = time.time()
