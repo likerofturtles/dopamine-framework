@@ -17,7 +17,8 @@ logger = logging.getLogger("discord")
 
 
 class Bot(commands.Bot):
-    def __init__(self, cogs_path: str = "cogs", log_path: str = None, default_diagnostics: bool = True, status: discord.Status = None, activity: discord.Activity = None, *args, **kwargs):
+    def __init__(self, cogs_path: str = "cogs", log_path: str = None, default_diagnostics: bool = True, status: discord.Status = None, activity: discord.Activity = None, global_cooldown_rate: int = 10,
+        global_cooldown_per: float = 60.0, *args, **kwargs):
         self.init_start_time = time.time()
         command_prefix = kwargs.pop("command_prefix", "!")
 
@@ -27,6 +28,7 @@ class Bot(commands.Bot):
             member_cache_flags=discord.MemberCacheFlags(voice=True, joined=False),
             chunk_guilds_at_startup=False,
             guild_ready_timeout=0,
+
             *args, **kwargs
         )
         self.cogs_path = cogs_path
@@ -35,6 +37,13 @@ class Bot(commands.Bot):
         self.default_diagnostics = default_diagnostics
         self._status=status
         self._activity=activity
+        self.global_cooldown_rate = global_cooldown_rate
+        self.global_cooldown_per = global_cooldown_per
+        self.global_cooldown_mapping = commands.CooldownMapping.from_cooldown(
+            self.global_cooldown_rate,
+            self.global_cooldown_per,
+            commands.BucketType.user
+        )
         self.registry = CommandRegistry(self)
         self.logger = None
         self.start_time = None
@@ -75,6 +84,32 @@ class Bot(commands.Bot):
             self.loop.add_signal_handler(
                 s, lambda: asyncio.create_task(self.signal_handler())
             )
+
+        async def on_tree_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+
+            if isinstance(error, app_commands.CommandInvokeError):
+                error = error.original
+
+            from .core.errors import PreconditionFailed
+            if isinstance(error, PreconditionFailed):
+                if not interaction.response.is_done():
+                    await interaction.response.send_message(f"{error.message}", ephemeral=True)
+                else:
+                    await interaction.followup.send(f"{error.message}", ephemeral=True)
+                return
+
+            if isinstance(error, app_commands.CheckFailure):
+                if not interaction.response.is_done():
+                    await interaction.response.send_message("You do not meet the requirements to run this command.",
+                                                            ephemeral=True)
+                return
+
+            self.logger.error(f"Ignoring exception in command {interaction.command.name}: {error}")
+            if not interaction.response.is_done():
+                await interaction.response.send_message("⚠An unexpected error occurred.", ephemeral=True)
+
+        self.tree.on_error = on_tree_error
+
         self.total_setup_time = time.time() - self.init_start_time
 
     async def signal_handler(self):
