@@ -54,9 +54,6 @@ def command(
 
 
 class Group(app_commands.Group):
-    """Custom app-command group that inherits Dopamine defaults.
-
-    """
     def __init__(
             self,
             name: str = None,
@@ -66,26 +63,30 @@ class Group(app_commands.Group):
             cooldown: tuple[int, float] = None,
             **kwargs
     ):
-        """Initialize a command group with optional preset and cooldown checks.
-
-        Args:
-            name: Slash-command name override.
-            description: Slash-command description override.
-            global_cooldown: Whether the framework-level cooldown should be attached.
-            permissions_preset: Optional preset name that adds permission checks.
-            cooldown: Optional per-command cooldown as a `(rate, per)` tuple.
-            **kwargs: Additional keyword arguments forwarded to the underlying API.
-        """
         super().__init__(
             name=name or self.__class__.__name__.lower(),
             description=description or (self.__doc__ or "No description provided"),
             **kwargs
         )
-        if permissions_preset:
-            preset(permissions_preset)(self)
+        self._dopamine_settings = {
+            'permissions_preset': permissions_preset,
+            'cooldown': cooldown,
+            'global_cooldown': global_cooldown
+        }
 
-        if cooldown:
-            rate, per = cooldown
-            local_cooldown(rate, per)(self)
-        elif global_cooldown:
-            g_cooldown()(self)
+    def add_command(self, command: app_commands.Command, /) -> None:
+        """Apply Dopamine features to every command added to this group."""
+        preset_val = self._dopamine_settings['permissions_preset']
+        cooldown_val = self._dopamine_settings['cooldown']
+        global_cd = self._dopamine_settings['global_cooldown']
+
+        if preset_val:
+            preset(preset_val)(command)
+
+        if cooldown_val:
+            rate, per = cooldown_val
+            local_cooldown(rate, per)(command)
+        elif global_cd:
+            g_cooldown()(command)
+
+        return super().add_command(command)
