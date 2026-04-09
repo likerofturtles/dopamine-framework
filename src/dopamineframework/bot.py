@@ -18,17 +18,22 @@ logger = logging.getLogger("discord")
 
 class Bot(commands.Bot):
     def __init__(self, cogs_path: str = "cogs", log_path: str = None, default_diagnostics: bool = True, status: discord.Status = None, activity: discord.Activity = None, global_cooldown_rate: int = 10,
-        global_cooldown_per: float = 60.0, *args, **kwargs):
+        global_cooldown_per: float = 60.0, minimal_cacheing: bool = False, *args, **kwargs):
         self.init_start_time = time.time()
         command_prefix = kwargs.pop("command_prefix", "!")
+
+        cache_flags = (
+            discord.MemberCacheFlags(voice=False, joined=False)
+            if minimal_cacheing else discord.MemberCacheFlags.all()
+        )
+        chunk_at_startup = False if minimal_cacheing else True
 
         super().__init__(
             command_prefix=command_prefix,
             help_command=None,
-            member_cache_flags=discord.MemberCacheFlags(voice=True, joined=False),
-            chunk_guilds_at_startup=False,
+            member_cache_flags=cache_flags,
+            chunk_guilds_at_startup=chunk_at_startup,
             guild_ready_timeout=0,
-
             *args, **kwargs
         )
         self.cogs_path = cogs_path
@@ -44,6 +49,7 @@ class Bot(commands.Bot):
             self.global_cooldown_per,
             commands.BucketType.user
         )
+        self.minimal_cacheing = minimal_cacheing
         self.registry = CommandRegistry(self)
         self.logger = None
         self.start_time = None
