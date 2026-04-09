@@ -27,15 +27,18 @@ bot.run("YOUR_TOKEN_HERE")
 
 #### Parameters
 
-| Parameter           | Type | Default   | Description |
-|---------------------| --- |-----------| --- |
-| `command_prefix`    | `str` | `!`       | Prefix for text-based commands. |
-| `cogs_path`         | `str` | `"cogs"`  | Directory containing `.py` files to be loaded as extensions. |
-| `log_path`          | `str` | `None`    | File path for the `aiosqlite` logging database. If `None`, the Logging Manager is disabled. |
-| `default_diagnostics` | `bool` | `True`    | Whether to load the built-in diagnostics extension. |
-| `status`            | `discord.Status` | `None`    | Initial presence status for the bot. |
-| `activity`          | `discord.Activity` | `None`    | Initial activity for the bot. |
-| `*args / **kwargs`  | `Any` | -         | Supports all standard `discord.ext.commands.Bot` arguments (e.g., `intents`). |
+| Parameter           | Type               | Default  | Description                                                                                  |
+|---------------------|--------------------|----------|----------------------------------------------------------------------------------------------|
+| `command_prefix`    | `str`              | `!`      | Prefix for text-based commands.                                                              |
+| `cogs_path`         | `str`              | `"cogs"` | Directory containing `.py` files to be loaded as extensions.                                 |
+| `log_path`          | `str`              | `None`   | File path for the `aiosqlite` logging database. If `None`, the Logging Manager is disabled.  |
+| `default_diagnostics` | `bool`             | `True`   | Whether to load the built-in diagnostics extension.                                          |
+| `status`            | `discord.Status`   | `None`   | Initial presence status for the bot.                                                         |
+| `activity`          | `discord.Activity` | `None`   | Initial activity for the bot.                                                                |
+| `global_cooldown_rate`          | `int`              | `10`     | The number of commands that use global cooldown that are allowed within the cooldown window. |
+| `global_cooldown_per`          | `float`            | `60.0`   | The length of the cooldown window in seconds.                                                |
+| `minimal_cacheing`          | `bool`            | `False`  | Reduces memory usage by disabling useless caching of all members.                            |
+| `*args / **kwargs`  | `Any`              | -        | Supports all standard `discord.ext.commands.Bot` arguments (e.g., `intents`).                |
 
 ---
 
