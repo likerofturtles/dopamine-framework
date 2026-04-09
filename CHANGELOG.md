@@ -1,3 +1,12 @@
+## [v2.1.0](https://github.com/dopaminestudios/dopamine-framework/compare/vv2.0.2...vv2.1.0) (2026-04-09)
+### Features & Minor Updates and Changes
+
+* retry_after in error message for cooldown is now rounded to nearest whole number instead of one showing decimal place. ([d03be00](https://github.com/dopaminestudios/dopamine-framework/commit/d03be008f7484110fcd67357eb62dce04a656f5c))
+
+### Documentation Changes
+
+* Updated README. ([4488ea0](https://github.com/dopaminestudios/dopamine-framework/commit/4488ea0d736e646fdf6b750b2c290ae8f3a1dcb7))
+
 ## [v2.0.2](https://github.com/dopaminestudios/dopamine-framework/compare/vv2.0.1...vv2.0.2) (2026-04-09)
 ### Bug Fixes
 
