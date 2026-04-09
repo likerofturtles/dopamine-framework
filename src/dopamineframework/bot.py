@@ -113,7 +113,7 @@ class Bot(commands.Bot):
                 s, lambda: asyncio.create_task(self.signal_handler())
             )
 
-        async def on_tree_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
+        async def on_tree_error(interaction: discord.Interaction, error: app_commands.AppCommandError):
 
             """Handle slash-command errors and convert framework exceptions to user responses.
 
