@@ -33,5 +33,5 @@ class RateLimited(PreconditionFailed):
             retry_after: Seconds until the command can be used again.
         """
         self.retry_after = retry_after
-        self.message = f"You are using commands too quickly! Please try again in **{retry_after:.1f}s**."
+        self.message = f"You are using commands too quickly! Please try again in **{retry_after:.0f}s**."
         super().__init__(self.message)
