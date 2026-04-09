@@ -1,6 +1,30 @@
+<div align="center">
+
 # Dopamine Framework
 
-Dopamine Framework is a framework for discord.py which allows you to initialize a production-ready Discord bot in just 4 lines of code. In technical terms, this is a **Flexible Boilerplate Framework** (not to be confused with **opinionated** boilerplate framework). It is designed to streamline the development of scalable Discord applications by automating the process of registering commands, diagnosing the bot, and various other utilities such as a paginator helper and "Private View" helpers which let only the user who initiated the interaction to interact with the components like buttons.
+</div>
+
+<p align="center">
+  <a href="https://pypi.org/project/dopamine-framework/">
+    <img src="https://img.shields.io/pypi/v/dopamine-framework?style=for-the-badge&logo=pypi&color=blue" />
+  </a>
+  <a href="https://www.python.org/">
+  <img src="https://img.shields.io/badge/python-3.12+-yellow?style=for-the-badge&logo=python&logoColor=white" />
+</a>
+  <a href="https://github.com/smite-codes/dopamine-framework/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/dopaminestudios/dopamine-framework?style=for-the-badge&color=orange" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="#installing"><b>Install</b></a> •
+  <a href="#features"><b>Features</b></a> •
+  <a href="#comparison-with-sapphire-framework-and-bare-bones-discordpy"><b>Comparison</b></a> •
+  <a href="#implementation-example"><b>Quick Start</b></a> •
+  <a href="https://github.com/smite-codes/dopamine-framework/issues"><b>Report Bug</b></a>
+</p>
+
+Dopamine Framework is a framework for discord.py which allows you to initialize a production-ready Discord bot in just 4 lines of code. In technical terms, this is a **Flexible Boilerplate Framework** (not to be confused with **opinionated** boilerplate framework). It is designed to streamline the development of scalable Discord applications by automating the process of registering commands and simplify the process of creating them, diagnosing the bot, and various other utilities such as a paginator helper and "Private View" helpers which let only the user who initiated the interaction to interact with the components like buttons.
 
 A **Dopamine Studios** product.
 
@@ -19,11 +43,53 @@ py -3 -m pip install -U dopamine-framework
 ```
 ## Features
 
-### 1. Smart Command Syncs
+### 1. Smart Command Syncing
 
 The framework includes a Command Registry that compares local command states with remote Discord API states. This ensures that global and guild-specific slash commands are only synced when changes are detected, preventing unnecessary API overhead and rate-limit triggers.
 
-### 2. Diagnostics
+### 2. Dopamine Commands decorator with Preconditions
+The `@dopamine_commands.command` decorator replaces the standard discord.py version, allowing you to define permissions and cooldowns in a single line.
+
+* **Simplified Syntax:** Define name, description, permissions, and cooldowns within one decorator.
+* **Implicit Global Cooldown:** Every command is protected by the bot's global rate limit by default.
+* **Group Support:** Use `dopamine_commands.Group` to apply permissions or cooldowns to an entire category of subcommands at once.
+
+```python
+from dopamineframework.core import dopamine_commands
+
+@dopamine_commands.command(
+    name="ban",
+    permissions_preset="moderator",
+    global_cooldown=True
+)
+async def ban_member(interaction: discord.Interaction, member: discord.Member):
+    await member.ban()
+    await interaction.response.send_message(f"{member.display_name} has been banned.")
+```
+
+### 3. Precondition Decorators
+If you prefer using standard `app_commands`, you can use the standalone `@preconditions` decorators to enforce rules dynamically.
+
+* **Permission Presets:** Use pre-defined roles like `"admin"`, `"moderator"`, or `"support"` instead of manual permission bitfields.
+* **Advanced Logic:** Includes `has_permissions_any` (pass if user has one of many) and `has_permissions` (must have all).
+* **Smart Rate Limiting:** Easily implement command-specific or bot-wide global cooldowns to prevent spam.
+
+| Preset | Description |
+| :--- | :--- |
+| **bot_owner** | Hard-lock commands to the developer only. |
+| **moderator** | Manage Messages, Kick, and Ban members. |
+| **manager** | Manage Guild, Roles, and Channels. |
+| **technical** | Manage Webhooks and Guild settings. |
+
+### 4. In-Discord Owner Dashboard
+
+No need for terminal access/SSH. This simple to use and feature-rich dashboard for bot owners allows you to unload/reload cogs on the fly, restart the bot, or check logs, accessed using `/od`. This allows bot owner(s) to manage, diagnose the bot right within Discord itself. This dashboard allows the bot to run idefinitely without restarts:
+
+* **Cog Management:** Dynamic loading, unloading, and reloading of cogs.
+* **Power State:** Remote shutdown and process-level restarts.
+* **Logs:** Real-time retrieval of log files via the Discord UI.
+* **Manual Command Syncs:** Sync commands manually globally or within only the current guild.
+### 5. Diagnostics
 
 The built-in `Diagnostics` "cog" (module) provides real-time monitoring of the bot's health, including:
 
@@ -32,38 +98,31 @@ The built-in `Diagnostics` "cog" (module) provides real-time monitoring of the b
 * **Graphs:** Generate graphs for the bot's latency for visual performance auditing.
 * **Host Device Metrics:** Integration with system sensors to report host location and battery status, if available.
 
-### 3. In-Discord Owner Dashboard
-
-No need for terminal access/SSH. This simple to use and feature-rich dashboard for bot owners allows you to unload/reload cogs on the fly, restart the bot, or check logs, accessed using `/od`. This allows bot owner(s) to manage, diagnose the bot right within Discord itself. This dashboard allows the bot to run idefinitely without restarts:
-
-* **Cog Management:** Dynamic loading, unloading, and reloading of cogs.
-* **Power State:** Remote shutdown and process-level restarts.
-* **Logs:** Real-time retrieval of log files via the Discord UI.
-* **Manual Command Syncs:** Sync commands manually globally or within only the current guild.
-
-### 4. Built-in Logging Backend
+### 6. Built-in Logging Backend
 
 * A robust Logging Manager utilizing `aiosqlite` that can be plugged into any feature of your bot to implement a logging system, such as for mod logs, action logs, etc.
 
 ---
 
-### Comparison (with Sapphire Framework and bare-bones discord.py)
+### Comparison (with Sapphire Framework and standard discord.py)
 
-| Feature                                   |      Dopamine Framework       |      Sapphire (js/ts)       |           discord.py            |
-|:------------------------------------------|:-----------------------------:|:---------------------------:|:-------------------------------:|
-| **Easy Setup**                            |  **✅ (minimal boilerplate)**  | **❌** (Lots of boilerplate) |              **❌**              |
-| **No tantrums over different structure**  |             **✅**             |            **❌**            |              **✅**              |
-| **Python's ease of use**                  |             **✅**             |            **❌**            |              **✅**              |
-| **Smart Commands Sync**                   |       **✅ (Built-in)**        |   **✅** (Through plugins)   |  **❌** (not included/standard)  |
-| **In-Discord Dashboard**                  |       **✅ (Built-in)**        |            **❌**            |              **❌**              |
-| **Latency Graphs**                        |       **✅ (Built-in)**        |            **❌**            |              **❌**              |
-| **Scalability***                          |             **✅**             |            **✅**            |              **✅**              |
-| **Fast Iteration**                        |             **✅**             |            **❌**            |              **❌**              |
-| **Strict TypeScript Rules**               |             **❌**             |            **✅**            |              **❌**              |
-| **Built-in Resource Monitoring**          |             **✅**             |            **❌**            |              **❌**              |
-| **Is it JS, tho?**                        |             **❌**             |            **✅**            |              **❌**              |
-| **Wins Imaginary Benchmarks**             |             **❌**             |            **✅**            |              **❌**              |
-| **Gives you that Dopamine rush?**         |       **✅ (Built-in)**        |            **❌**            |              **❌**              |
+| Feature                                                |     Dopamine Framework      |      Sapphire (js/ts)       |           discord.py            |
+|:-------------------------------------------------------|:---------------------------:|:---------------------------:|:-------------------------------:|
+| **Easy Setup**                                         | **✅ <br/>(minimal boilerplate)** | **❌** <br/>(Lots of boilerplate) |              **❌**              |
+| **Preconditions Support**                              |            **✅**            |            **✅**            |              **❌**              |
+| **Presets for Permission Checks<br/>in Preconditions** |            **✅**            |             **❌**            |              **❌**              |
+| **No tantrums over different structure**               |            **✅**            |            **❌**            |              **✅**              |
+| **Python's ease of use**                               |            **✅**            |            **❌**            |              **✅**              |
+| **Smart Commands Sync**                                |       **✅<br/>(Built-in)**       |   **✅** <br/>(Through plugins)   |  **❌** <br/>(not included/standard)  |
+| **In-Discord Dashboard**                               |      **✅ <br/>(Built-in)**       |            **❌**            |              **❌**              |
+| **Latency Graphs**                                     |      **✅ <br/>(Built-in)**       |            **❌**            |              **❌**              |
+| **Scalability***                                       |            **✅**            |            **✅**            |              **✅**              |
+| **Fast Iteration**                                     |            **✅**            |            **❌**            |              **❌**              |
+| **Strict TypeScript Rules**                            |            **❌**            |            **✅**            |              **❌**              |
+| **Built-in Resource Monitoring**                       |            **✅**            |            **❌**            |              **❌**              |
+| **Is it JS, tho?**                                     |            **❌**            |            **✅**            |              **❌**              |
+| **Wins Imaginary Benchmarks**                          |            **❌**            |            **✅**            |              **❌**              |
+| **Gives you that Dopamine rush?**                      |      **✅ <br/>(Built-in)**       |            **❌**            |              **❌**              |
 
 <sup>*Scalability refers to ability to run without problems when the bot is in tens of thousands of servers or more. While it's a common myth that "Python is bloated", that's not true in the context of Discord bots. The real bottleneck in popular Discord bots always comes down to network, not code execution time or memory usage.</sup>
 
