@@ -55,7 +55,7 @@ The `@dopamine_commands.command` decorator replaces the standard discord.py vers
 * **Group Support:** Use `dopamine_commands.Group` to apply permissions or cooldowns to an entire category of subcommands at once.
 
 ```python
-from dopamineframework.core import dopamine_commands
+from dopamineframework import dopamine_commands
 
 @dopamine_commands.command(
     name="ban",
